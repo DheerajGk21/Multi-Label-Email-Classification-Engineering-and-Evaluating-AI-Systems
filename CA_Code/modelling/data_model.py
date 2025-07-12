@@ -1,3 +1,4 @@
+from sklearn.preprocessing import LabelEncoder
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -10,10 +11,16 @@ np.random.seed(seed)
 class Data():
     def __init__(self,
                  X: np.ndarray,
-                 df: pd.DataFrame) -> None:
+                 df: pd.DataFrame,
+                 label: str) -> None:
 
-        y = df.y.to_numpy()
-        y_series = pd.Series(y)
+        y = df[label].astype(str)
+
+        # Label Encoder for "y" values
+        self.label_encoder = LabelEncoder()
+        y_encoded = self.label_encoder.fit_transform(y)
+        y_series = pd.Series(y_encoded)
+        self.y_encoded_series = y_series
 
         good_y_value = y_series.value_counts()[y_series.value_counts() >= 3].index
 
@@ -22,7 +29,7 @@ class Data():
             self.X_train = None
             return
 
-        y_good = y[y_series.isin(good_y_value)]
+        y_good = y_encoded[y_series.isin(good_y_value)]
         X_good = X[y_series.isin(good_y_value)]
 
         new_test_size = X.shape[0] * 0.2 / X_good.shape[0]
@@ -36,6 +43,8 @@ class Data():
 
     def get_type(self):
         return  self.y
+    def get_type_encoded_series(self):
+        return  self.y_encoded_series
     def get_X_train(self):
         return  self.X_train
     def get_X_test(self):
@@ -54,4 +63,6 @@ class Data():
         return self.X_DL_test
     def get_X_DL_train(self):
         return self.X_DL_train
+    def get_label_encoder(self):
+        return self.label_encoder
 

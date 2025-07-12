@@ -37,7 +37,14 @@ class RandomForest(BaseModel):
         self.predictions = predictions
 
     def print_results(self, data):
-        print(classification_report(data.y_test, self.predictions))
+        print(
+            classification_report(
+                data.y_test,
+                self.predictions,
+                target_names=target_names_for_report,
+                zero_division=0,
+            )
+        )
 
 
     def data_transform(self) -> None:
