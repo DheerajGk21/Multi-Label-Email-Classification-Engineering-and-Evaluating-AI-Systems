@@ -7,3 +7,5 @@ class Config:
     TYPE_COLS = ['y2', 'y3', 'y4']
     CLASS_COL = 'y2'
     GROUPED = 'y1'
+
+    LABEL_CHAIN = ['y2', 'y3', 'y4']
