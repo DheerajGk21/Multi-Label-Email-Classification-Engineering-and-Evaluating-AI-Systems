@@ -38,6 +38,26 @@ def perform_modelling(data: Data, df: pd.DataFrame, name):
     return model_predict(data, df, name)
 
 
+def performance_evaluation(group_df_current: pd.DataFrame, predictions: dict):
+    y2_true = group_df_current["y2_true"].values
+    y2_pred = predictions["y2"]
+    y2_accuracy = y2_true == y2_pred
+
+    y3_true = group_df_current["y3_true"].values
+    y3_pred = predictions["y3"]
+    y3_accuracy = y2_accuracy & (y3_true == y3_pred)
+
+    y4_true = group_df_current["y4_true"].values
+    y4_pred = predictions["y4"]
+    y4_accuracy = y3_accuracy & (y4_true == y4_pred)
+
+    print()
+    print("-------------------------------------")
+    print("Models Accuracy:")
+    print("y2 :", y2_accuracy.mean())
+    print("y3 :", y3_accuracy.mean())
+    print("y4 :", y4_accuracy.mean())
+
 
 if __name__ == "__main__":
     df = load_data()
@@ -84,3 +104,6 @@ if __name__ == "__main__":
         print("-------------------------------------")
         for label, preds in predictions.items():
             print(label + ": ", np.unique(preds, return_counts=True))
+
+        # Performance Evaluation:
+        performance_evaluation(group_df_current, predictions)
