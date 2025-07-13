@@ -1,6 +1,6 @@
 # Contributers
 DHEERAJ GOPALKRISHNA : 24135739 &nbsp; | &nbsp; Contribution : 50%   
-AHMED OZAIR CHAKARI : 24212113 &nbsp;&nbsp;&nbsp; | &nbsp; Contribution : 50%
+AHMED OZAIR CHAKARI &nbsp;&nbsp;: 24212113 &nbsp; | &nbsp; Contribution : 50%
 
 # Introduction
 
